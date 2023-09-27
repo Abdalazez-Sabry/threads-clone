@@ -4,7 +4,6 @@ const nextConfig = {
     serverActions: true,
     serverComponentsExternalPackages: ['mongose']
   },
-  swcMinify: false,
   images: {
     remotePatterns: [
       {
