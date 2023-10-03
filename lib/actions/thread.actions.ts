@@ -66,10 +66,10 @@ export async function fetchThreads (pageNumber = 1, pageSize = 20 ) {
       select: "id name parentId image"
     }})
     
-    const totalThreadsCount = await Thread.countDocuments({parentId: {$in: [null, undefined]}})
+    // const totalThreadsCount = await Thread.countDocuments({parentId: {$in: [null, undefined]}})
     const threads = await threadsQuery.exec();
-    const isNext = totalThreadsCount > skipAmount + threads.length;
-    return {threads, isNext}
+    // const isNext = totalThreadsCount > skipAmount + threads.length;
+    return {threads, isNext: false}
      
 }
 

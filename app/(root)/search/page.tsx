@@ -15,7 +15,7 @@ export default async function Page() {
   const userInfo = await fetchUser(user.id);
 
   if (!userInfo?.onboarded) {
-    redirect('/dashboard');
+    redirect('/onboarding');
   }
 
   const result = await fetchUsers({userId: user.id, searchString: '', pageNumber: 1, pageSize: 25}) 

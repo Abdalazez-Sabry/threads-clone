@@ -13,7 +13,7 @@ export default async function Page() {
   const userInfo = await fetchUser(user.id);
 
   if (!userInfo?.onboarded) {
-    redirect('/dashboard');
+    redirect('/onboard');
   }
 
   const activities = await fetchActivities(user.id);
