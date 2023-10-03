@@ -1,5 +1,6 @@
 "use client"
 
+import { formatDateString } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,7 +19,7 @@ interface Props {
     name: string;
     image: string;
   } | null;
-  createdAt: string;
+  createdAt: Date;
   comments: {
     author: {
       image: string;
@@ -28,14 +29,17 @@ interface Props {
 }
 
 export default function ThreadCard({id, currentUserId, parentId, content, author, community, createdAt, comments, isComment}: Props) {
-  console.log(author.id)
   return (
-    <article className={`flex w-full flex-col rounded-x p-7 ${isComment ? 'px-0 xs:px-7' : 'bg-dark-2'}`}>
+    <article
+      className={`flex w-full flex-col rounded-x p-7 ${
+        isComment ? "px-0 xs:px-7" : "bg-dark-2"
+      }`}
+    >
       <div className="flex items-start justify-between">
         <div className="flex w-full flex-1 flex-row gap-4 ">
           <div className="flex flex-col items-center justify-center">
             <Link href={`/profile/${author.id}`} className="relative h-11 w-11">
-              <Image 
+              <Image
                 src={author.image}
                 alt="Profile Image"
                 fill
@@ -46,27 +50,60 @@ export default function ThreadCard({id, currentUserId, parentId, content, author
           </div>
           <div className="flex flex-col w-full">
             <Link href={`/profile/${author.id}`} className="w-fit">
-              <h4 className="cursor-pointer text-base-semibold text-light-1">{author.name}</h4>
+              <h4 className="cursor-pointer text-base-semibold text-light-1">
+                {author.name}
+              </h4>
             </Link>
             <p className="mt-2 text-small-regular text-light-1">{content}</p>
-            <div className={`${isComment && ''} mt-5 flex flex-col gap-3`}>
+            <div className={`${isComment && ""} mt-5 flex flex-col gap-3`}>
               <div className="flex gap-3.5">
-                <Image src="/assets/heart-gray.svg" alt="heart" width={24} height={24} className="cursor-pointer object-contain" />
+                <Image
+                  src="/assets/heart-gray.svg"
+                  alt="heart"
+                  width={24}
+                  height={24}
+                  className="cursor-pointer object-contain"
+                />
                 <Link href={`/thread/${id}`}>
-                  <Image src="/assets/reply.svg" alt="reply" width={24} height={24} className="cursor-pointer object-contain" />
+                  <Image
+                    src="/assets/reply.svg"
+                    alt="reply"
+                    width={24}
+                    height={24}
+                    className="cursor-pointer object-contain"
+                  />
                 </Link>
-                <Image src="/assets/repost.svg" alt="repost" width={24} height={24} className="cursor-pointer object-contain" />
-                <Image src="/assets/share.svg" alt="share" width={24} height={24} className="cursor-pointer object-contain" />
+                <Image
+                  src="/assets/repost.svg"
+                  alt="repost"
+                  width={24}
+                  height={24}
+                  className="cursor-pointer object-contain"
+                />
+                <Image
+                  src="/assets/share.svg"
+                  alt="share"
+                  width={24}
+                  height={24}
+                  className="cursor-pointer object-contain"
+                />
               </div>
-              {isComment && comments.length> 0 && (
-                <Link href={`/thread/${id}`}>
-                  <p className="mt-1 text-subtle-medium text-gray-1">{comments.length} replies</p>
-                </Link>
-              )}
+              <div className="flex gap-2">
+                {comments.length > 0 && (
+                  <Link href={`/thread/${id}`}>
+                    <p className="mt-1 text-subtle-medium text-gray-1">
+                      {comments.length} replies
+                    </p>
+                  </Link>
+                )}
+                <p className="mt-1 text-subtle-medium text-gray-1">
+                  {createdAt.toLocaleString()}
+                </p>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </article>
-  )
+  );
 }

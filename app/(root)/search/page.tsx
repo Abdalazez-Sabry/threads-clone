@@ -1,3 +1,5 @@
+
+
 import UserCard from "@/components/cards/UserCard";
 import { Input } from "@/components/ui/input";
 import { fetchUser, fetchUsers } from "@/lib/actions/user.actions";
@@ -20,10 +22,17 @@ export default async function Page() {
 
   return (
   <section>
-    <h1 className="head-text mb-10">Search</h1>
+    <div className="flex justify-between gap-10 items-center mb-10">
 
-    {/* TODO: searchbar */}
+      <h1 className="head-text">Search</h1>
 
+      <Input
+        type="search"
+        placeholder="Enter the name of the user"
+        className="rounded-full bg-dark-3 max-w-lg  border-gray-1 text-light-1"
+      
+      />
+    </div>
 
     <div className="mt-14 flex flex-col gap-9">
       {result.users.length === 0 ? (
